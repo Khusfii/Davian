@@ -432,7 +432,7 @@ export default function App() {
                       required
                       value={formData.attendance}
                       onChange={(e) => setFormData({...formData, attendance: e.target.value})}
-                      className="w-full bg-transparent border-b-2 border-outline-variant focus:border-primary-container focus:outline-none py-3 text-lg font-medium transition-all"
+                      className="w-full bg-transparent border-b-2 border-outline-variant focus:border-primary-container focus:outline-none py-3 text-lg font-bold transition-all animate-fade-blue-white"
                     >
                       <option value="">Pilih status kehadiran</option>
                       <option value="hadir">Sapaan Hangat, Saya Hadir</option>

@@ -31,3 +31,22 @@
   background-image: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M20 0l20 20-20 20L0 20z" fill="none" stroke="%23333333" stroke-width="0.5" stroke-opacity="0.3"/></svg>');
   background-size: 40px 40px;
 }
+
+@layer utilities {
+  .animate-fade-blue-white {
+    animation: fadeBlueWhite 2s infinite alternate;
+  }
+}
+
+@keyframes fadeBlueWhite {
+  0% {
+    color: #00E5FF;
+    border-color: #00E5FF;
+    text-shadow: 0 0 5px rgba(0, 229, 255, 0.5);
+  }
+  100% {
+    color: #ffffff;
+    border-color: #ffffff;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+  }
+}
