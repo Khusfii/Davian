@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Calendar, MapPin, PartyPopper, CheckCircle2, ChevronRight, Menu, X, Mail, Music, Volume2, VolumeX, Instagram } from 'lucide-react';
+import { Calendar, MapPin, PartyPopper, CheckCircle2, ChevronRight, Menu, X, Mail, Music, Volume2, VolumeX, Instagram, Globe } from 'lucide-react';
+import Particles from './components/Particles';
+import CursorGlow from './components/CursorGlow';
 
 export default function App() {
   const [isOpened, setIsOpened] = useState(false);
@@ -101,6 +103,8 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex flex-col font-sans">
+      <Particles />
+      <CursorGlow />
       {/* Cover Screen */}
       <AnimatePresence>
         {!isOpened && (
@@ -108,9 +112,9 @@ export default function App() {
             initial={{ opacity: 1 }}
             exit={{ opacity: 0, y: -100 }}
             transition={{ duration: 1, ease: 'easeInOut' }}
-            className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-white"
+            className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-surface"
           >
-            <div className="absolute inset-0 batik-pattern opacity-[0.05]"></div>
+            <div className="absolute inset-0 batik-pattern opacity-10"></div>
             <div className="relative z-10 flex flex-col items-center text-center px-6">
               <motion.div 
                 initial={{ scale: 0.8, opacity: 0 }}
@@ -130,7 +134,7 @@ export default function App() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={handleOpenInvitation}
-                className="bg-primary-container text-white px-10 py-4 rounded-full font-black text-[13px] tracking-[0.3em] shadow-xl flex items-center gap-3"
+                className="bg-primary-container text-black px-10 py-4 rounded-full font-black text-[13px] tracking-[0.3em] shadow-xl flex items-center gap-3"
               >
                 <Mail size={18} />
                 BUKA UNDANGAN
@@ -157,14 +161,14 @@ export default function App() {
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
           onClick={toggleMusic}
-          className={`fixed bottom-8 right-8 z-[60] w-12 h-12 rounded-full flex items-center justify-center shadow-2xl transition-colors ${isPlaying ? 'bg-white text-primary-container' : 'bg-primary-container text-white'}`}
+          className={`fixed bottom-8 right-8 z-[60] w-12 h-12 rounded-full flex items-center justify-center shadow-2xl transition-colors ${isPlaying ? 'bg-surface-container text-primary-container border border-primary-container/30' : 'bg-primary-container text-black'}`}
         >
           {isPlaying ? <Volume2 size={24} className="animate-pulse" /> : <VolumeX size={24} />}
         </motion.button>
       )}
 
       {/* Navigation */}
-      <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/90 backdrop-blur-md shadow-sm border-b border-outline-variant/30 py-4' : 'bg-transparent py-6'}`}>
+      <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-surface/90 backdrop-blur-md shadow-sm border-b border-outline-variant/30 py-4' : 'bg-transparent py-6'}`}>
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
           <div className="text-xl font-bold tracking-tighter text-primary-container uppercase">
             Khitanan
@@ -185,7 +189,7 @@ export default function App() {
           <div className="flex items-center gap-4">
             <a 
               href="#rsvp" 
-              className="hidden md:block bg-primary-container text-white text-[12px] font-bold px-6 py-2.5 rounded-full hover:opacity-90 transition-opacity tracking-widest"
+              className="hidden md:block bg-primary-container text-black text-[12px] font-bold px-6 py-2.5 rounded-full hover:opacity-90 transition-opacity tracking-widest"
             >
               RSVP
             </a>
@@ -206,7 +210,7 @@ export default function App() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 z-40 bg-white pt-24 px-6 md:hidden"
+            className="fixed inset-0 z-40 bg-surface pt-24 px-6 md:hidden"
           >
             <nav className="flex flex-col gap-6 items-center">
               {navLinks.map((link) => (
@@ -221,7 +225,7 @@ export default function App() {
               ))}
               <a 
                 href="#rsvp" 
-                className="mt-4 bg-primary-container text-white text-sm font-bold px-10 py-4 rounded-full tracking-widest"
+                className="mt-4 bg-primary-container text-black text-sm font-bold px-10 py-4 rounded-full tracking-widest"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 RSVP NOW
@@ -233,8 +237,8 @@ export default function App() {
 
       <main>
         {/* Hero Section */}
-        <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white">
-          <div className="absolute inset-0 batik-pattern opacity-[0.03]"></div>
+        <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-transparent">
+          <div className="absolute inset-0 batik-pattern opacity-10 pointer-events-none"></div>
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -277,7 +281,7 @@ export default function App() {
         </section>
 
         {/* Event Details */}
-        <section id="event" className="py-32 bg-surface-container relative overflow-hidden">
+        <section id="event" className="py-32 bg-transparent relative overflow-hidden z-10">
           <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-outline-variant/30 to-transparent"></div>
           <div className="max-w-7xl mx-auto px-6 md:px-12">
             <div className="text-center mb-20">
@@ -290,15 +294,15 @@ export default function App() {
               <motion.div 
                 whileHover={{ y: -8 }}
                 transition={{ type: 'spring', stiffness: 300 }}
-                className="bg-white p-10 rounded-2xl border border-outline-variant/20 shadow-[0_4px_30px_-10px_rgba(0,0,0,0.05)] flex flex-col items-center text-center relative"
+                className="bg-surface-container p-10 rounded-2xl border border-outline-variant/30 shadow-[0_4px_30px_-10px_rgba(0,0,0,0.3)] flex flex-col items-center text-center relative"
               >
                 <div className="absolute top-0 inset-x-0 h-1 batik-pattern rounded-t-2xl opacity-10"></div>
-                <div className="w-16 h-16 bg-primary-container/5 rounded-full flex items-center justify-center mb-8">
+                <div className="w-16 h-16 bg-primary-container/10 rounded-full flex items-center justify-center mb-8">
                   <Calendar className="text-primary-container" size={28} />
                 </div>
                 <h3 className="text-2xl font-bold text-primary-container mb-4">Akad Khitan</h3>
                 <div className="space-y-2">
-                  <p className="text-lg font-medium text-on-surface">Rabu, 20 Mei 2026</p>
+                  <p className="text-lg font-medium text-on-surface">Rabu, 12 Mei 2026</p>
                   <p className="text-on-surface-variant">08.00 WIB - Selesai</p>
                 </div>
               </motion.div>
@@ -307,15 +311,15 @@ export default function App() {
               <motion.div 
                 whileHover={{ y: -8 }}
                 transition={{ type: 'spring', stiffness: 300 }}
-                className="bg-white p-10 rounded-2xl border border-outline-variant/20 shadow-[0_4px_30px_-10px_rgba(0,0,0,0.05)] flex flex-col items-center text-center relative"
+                className="bg-surface-container p-10 rounded-2xl border border-outline-variant/30 shadow-[0_4px_30px_-10px_rgba(0,0,0,0.3)] flex flex-col items-center text-center relative"
               >
                 <div className="absolute top-0 inset-x-0 h-1 batik-pattern rounded-t-2xl opacity-10"></div>
-                <div className="w-16 h-16 bg-primary-container/5 rounded-full flex items-center justify-center mb-8">
+                <div className="w-16 h-16 bg-primary-container/10 rounded-full flex items-center justify-center mb-8">
                   <PartyPopper className="text-primary-container" size={28} />
                 </div>
                 <h3 className="text-2xl font-bold text-primary-container mb-4">Resepsi</h3>
                 <div className="space-y-2">
-                  <p className="text-lg font-medium text-on-surface">Rabu, 20 Mei 2026</p>
+                  <p className="text-lg font-medium text-on-surface">Rabu, 12 Mei 2026 </p>
                   <p className="text-on-surface-variant">11.00 - 14.00 WIB</p>
                 </div>
               </motion.div>
@@ -324,8 +328,8 @@ export default function App() {
         </section>
 
         {/* Location Section */}
-        <section id="location" className="py-32 bg-white">
-          <div className="max-w-7xl mx-auto px-6 md:px-12">
+        <section id="location" className="py-32 bg-transparent relative z-10">
+          <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
             <div className="text-center mb-20">
               <h2 className="text-3xl md:text-4xl font-bold text-primary-container mb-6">Lokasi Acara</h2>
               <div className="w-16 h-[2px] bg-outline-variant/50 mx-auto rounded-full mb-10"></div>
@@ -349,7 +353,7 @@ export default function App() {
                 ></iframe>
               </div>
               <div className="absolute top-6 left-6 pointer-events-none">
-                <div className="bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg border border-primary-container/10 flex items-center gap-2">
+                <div className="bg-surface/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg border border-primary-container/20 flex items-center gap-2">
                   <MapPin size={14} className="text-primary-container" />
                   <span className="text-[10px] font-bold text-primary-container tracking-wider uppercase">Lokasi Acara</span>
                 </div>
@@ -361,7 +365,7 @@ export default function App() {
                   whileTap={{ scale: 0.95 }}
                   href="https://www.google.com/maps/dir/?api=1&destination=-7.429233568611077,109.515014798724"
                   target="_blank"
-                  className="bg-primary-container text-white px-8 py-4 rounded-full shadow-2xl flex items-center gap-3 font-black tracking-[0.2em] text-[12px] hover:bg-black transition-all"
+                  className="bg-primary-container text-black px-8 py-4 rounded-full shadow-2xl flex items-center gap-3 font-black tracking-[0.2em] text-[12px] hover:opacity-80 transition-all pointer-events-auto"
                 >
                   <MapPin size={18} />
                   PETUNJUK ARAH KE LOKASI
@@ -372,18 +376,18 @@ export default function App() {
         </section>
 
         {/* RSVP Form */}
-        <section id="rsvp" className="py-32 bg-surface-container relative">
+        <section id="rsvp" className="py-32 bg-transparent relative z-10">
           <div className="absolute inset-0 batik-pattern opacity-5"></div>
           <div className="relative z-10 max-w-2xl mx-auto px-6">
             <motion.div 
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              className="bg-white p-10 md:p-16 rounded-[2rem] border border-outline-variant/30 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.1)]"
+              className="bg-surface-container p-10 md:p-16 rounded-[2rem] border border-outline-variant/30 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.5)]"
             >
               <div className="text-center mb-12">
                 <h2 className="text-3xl md:text-4xl font-bold text-primary-container mb-4">RSVP</h2>
-                <p className="text-on-surface-variant font-medium">Mohon konfirmasi kehadiran Anda sebelum tanggal 10 Juni 2024</p>
+                <p className="text-on-surface-variant font-medium">Mohon konfirmasi kehadiran Anda sebelum tanggal 12 Mei 2026</p>
               </div>
 
               {submitted ? (
@@ -440,7 +444,7 @@ export default function App() {
                     <button 
                       type="submit" 
                       disabled={isSubmitting}
-                      className="w-full bg-primary-container text-white py-5 rounded-full font-black text-[13px] tracking-[0.3em] shadow-xl hover:shadow-2xl hover:bg-black transition-all disabled:opacity-50 flex items-center justify-center gap-3"
+                      className="w-full bg-primary-container text-black py-5 rounded-full font-black text-[13px] tracking-[0.3em] shadow-[0_0_20px_rgba(0,229,255,0.3)] hover:shadow-[0_0_30px_rgba(0,229,255,0.5)] hover:opacity-90 transition-all disabled:opacity-50 flex items-center justify-center gap-3"
                     >
                       {isSubmitting ? (
                         "MENGIRIM..."
@@ -471,18 +475,18 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-outline-variant/20 py-20">
+      <footer className="bg-transparent border-t border-outline-variant/20 py-20 relative z-10">
         <div className="max-w-7xl mx-auto px-6 text-center">
           <div className="text-lg font-bold text-primary-container mb-8 uppercase tracking-widest">
             Khitanan
           </div>
           
           <p className="text-[10px] font-medium text-on-surface-variant/60 tracking-[0.15em] leading-loose max-w-sm mx-auto uppercase mb-10">
-            © 2024 KHITANAN.<br />
-            MODERN INDONESIAN TRADITION.
+            © 2026 KHITANAN.<br />
+              by Idexly Community.
           </p>
 
-          <div className="flex flex-col items-center gap-3">
+          <div className="flex flex-col items-center gap-3 mb-12">
             <p className="text-[10px] font-bold text-primary-container/40 tracking-[0.2em] uppercase">Created By</p>
             <motion.a 
               whileHover={{ scale: 1.1, color: '#E1306C' }}
@@ -495,6 +499,21 @@ export default function App() {
               <span className="text-xs font-bold tracking-widest uppercase">Khusfi_Umam</span>
             </motion.a>
           </div>
+
+          <motion.a 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            whileHover={{ scale: 1.05, boxShadow: '0 0 25px rgba(0,229,255,0.4)' }}
+            whileTap={{ scale: 0.95 }}
+            href="https://idexlycommunity.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-3 bg-transparent border-2 border-primary-container text-primary-container font-black text-xs tracking-[0.2em] uppercase px-8 py-4 rounded-full transition-all"
+          >
+            <Globe size={16} />
+            Idexly Community
+          </motion.a>
         </div>
       </footer>
     </div>
